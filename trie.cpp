@@ -40,6 +40,34 @@ Trie::Trie(char* word) : notFound(-1) {
 }
 
 void Trie::printTrie(int depth, TrieNonLeafNode *p, char *prefix) {
+    // register int i;             // assumption: the root is not a leaf
+    
+    // if (p->leaf) {              // and it is not null;
+    //     TrieLeafNode *lf = (TrieLeafNode*) p;
+        
+    //     for (i = 1; i <= depth; i++)
+    //         cout << "   ";
+        
+    //     cout << " >>" << prefix << "|" << lf->word << endl;
+    // }
+    
+    // else {
+    //     // for (i = strlen(p->letters)-1; i >= 0; i--)
+    //     for (i = 0; i < strlen(p->letters); i++)
+    //         if (p->ptrs[i] != 0) {             // add the letter
+    //             prefix[depth] = p->letters[i]; // corresponding to
+    //             prefix[depth+1] = '\0';        // position i to prefix;
+    //             printTrie(depth+1,p->ptrs[i],prefix);
+    //         }
+
+    //     if (p->endOfWord) {
+    //          prefix[depth] = '\0';
+    //          for (i = 1; i <= depth+1; i++)
+    //              cout << "   ";
+    //          cout << ">>>" << prefix << "\n";
+    //     }
+    // }
+
     register int i;             // assumption: the root is not a leaf
     
     if (p->leaf) {              // and it is not null;
@@ -52,19 +80,22 @@ void Trie::printTrie(int depth, TrieNonLeafNode *p, char *prefix) {
     }
     
     else {
-        for (i = strlen(p->letters)-1; i >= 0; i--)
-            if (p->ptrs[i] != 0) {             // add the letter
-                prefix[depth] = p->letters[i]; // corresponding to
-                prefix[depth+1] = '\0';        // position i to prefix;
-                printTrie(depth+1,p->ptrs[i],prefix);
-            }
-
+        // for (i = strlen(p->letters)-1; i >= 0; i--)
         if (p->endOfWord) {
              prefix[depth] = '\0';
              for (i = 1; i <= depth+1; i++)
                  cout << "   ";
              cout << ">>>" << prefix << "\n";
         }
+        
+        for (i = 0; i < strlen(p->letters); i++)
+            if (p->ptrs[i] != 0) {             // add the letter
+                prefix[depth] = p->letters[i]; // corresponding to
+                prefix[depth+1] = '\0';        // position i to prefix;
+                printTrie(depth+1,p->ptrs[i],prefix);
+            }
+
+        
     }
 }
 
