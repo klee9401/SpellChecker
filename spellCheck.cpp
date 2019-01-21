@@ -37,8 +37,8 @@ int main(int argc, char* argv[])  {
     cout << "Dictionary:" << endl;
     trie.printTrie();
     
-    cout << endl << endl << "****** BREADTH-FIRST TRAVERSAL ******" << endl;
-    trie.printBreadthFirstCaller();
+    // cout << endl << endl << "****** BREADTH-FIRST TRAVERSAL ******" << endl;
+    // trie.printBreadthFirstCaller();
     
     
     //show words to see if they are misspelled
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])  {
        exit(-1);
     }
 
-    cout << "Mispelled words:";
+    cout << "Mispelled words:" << endl << endl;
     textFile.get(ch);
 
     while (!textFile.eof()) {
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])  {
             }
 
             else {
-                cout << endl << "On line " << lineNum << " : " << s;
+                cout << "On line " << lineNum << " : " << s << endl;
                 current = lineNum;
             }
         }

@@ -37,7 +37,8 @@ class Trie {
             *prefix = '\0';
             printTrie(0,root,prefix);
         }
-        void printBreadthFirstCaller(){printBreadthFirst();}
+        void printBreadthFirstCaller() { printBreadthFirst(); }
+        // void printSuggestionsCaller() { printSuggestions(); }
         void insert(char*);
         bool wordFound(char*);
     
@@ -49,7 +50,7 @@ class Trie {
         void addCell(char,TrieNonLeafNode*,int);
         void createLeaf(char,char*,TrieNonLeafNode*);
         void printTrie(int,TrieNonLeafNode*,char*);
-        //void printTrieAlphabeticalOrder(int,TrieNonLeafNode*,char*);
         void printBreadthFirst();
+        void printSuggestions(int,TrieNonLeafNode*);
 };
 
