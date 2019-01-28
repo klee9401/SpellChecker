@@ -1,3 +1,5 @@
+using namespace std;
+
 class Trie;
 
 class TrieNonLeafNode {
@@ -51,6 +53,6 @@ class Trie {
         void createLeaf(char,char*,TrieNonLeafNode*);
         void printTrie(int,TrieNonLeafNode*,char*);
         void printBreadthFirst();
-        void printSuggestions(int,TrieNonLeafNode*);
+        void printSuggestions(string);
 };
 

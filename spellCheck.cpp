@@ -80,23 +80,26 @@ int main(int argc, char* argv[])  {
         }
 
         s[i] = '\0';
+
+        cout << "word: " << s << endl;
         
         if (!trie.wordFound(s)) {
             error = true;
+            cout << "false" << endl;
 
             if (current == lineNum) {
                 cout << ", " << s;
             }
 
             else {
-                cout << "On line " << lineNum << " : " << s << endl;
+                cout << "On line " << lineNum << " : " << s << endl << endl;;
                 current = lineNum;
             }
         }
     }
 
     if (!error) {
-            cout << "NONE";
+        cout << "NONE";
     }
     
     dictionary.close();
