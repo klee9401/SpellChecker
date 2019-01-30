@@ -45,22 +45,13 @@ void Trie::printTrie(int depth, TrieNonLeafNode *p, char *prefix) {
     
     if (p->leaf) {
         TrieLeafNode *lf = (TrieLeafNode*) p;
-        
-        // for (i = 1; i <= depth; i++)
-        //     cout << "   ";
-                
-        // cout << " >>" << prefix << "|" << lf->word << endl;
         cout << prefix << lf->word << endl;
     }
     
     else {
-        // for (i = strlen(p->letters)-1; i >= 0; i--)
+
         if (p->endOfWord) {
             prefix[depth] = '\0';
-            // for (i = 1; i <= depth+1; i++)
-            //     cout << "   ";
-
-            // cout << ">>>" << prefix << "\n";
             cout << prefix << endl;
         }
         
@@ -69,11 +60,8 @@ void Trie::printTrie(int depth, TrieNonLeafNode *p, char *prefix) {
             if (p->ptrs[i] != 0) {             // add the letter
                 prefix[depth] = p->letters[i]; // corresponding to
                 prefix[depth+1] = '\0';        // positjghion i to prefix;
-                // cout << "depth: " << depth << endl;
                 printTrie(depth+1,p->ptrs[i],prefix);
-            }
-
-        
+            }  
     }
 }
 
@@ -117,31 +105,18 @@ void Trie::printSuggestions(string temp) {
     TrieNonLeafNode *p = root;
     int i, pos, j;
 
-    cout << "temp: " ;
-
     for (i = 0; temp[i] != '\0'; ++i) {
-        cout << temp[i];
 
         if ((pos = position(p, temp[i])) != notFound && p->ptrs != 0){
             p = p->ptrs[pos];
         }
     }
-    cout << " length: " << i << endl;
 
     char* base = &temp[0u];
 
-    printTrie(i-1, p, base);
+    cout << "Suggestions:" << endl;
 
-    // if ((pos = position(p, temp[j])) != notFound && p->ptrs != 0){
-    //     p = p->ptrs[pos];
-    //     ++j;
-    // }
-
-    // temp[i] = word[0];
-    //         ++i;
-    //         p = p->ptrs[pos];              // path, if possible,
-    //         word++;
-    //         cout << word << endl;
+    printTrie(i, p, base);
 }
 
 int Trie::position(TrieNonLeafNode *p, char ch) {
@@ -160,60 +135,47 @@ bool Trie::wordFound(char *word) {
     TrieLeafNode *lf;
     int pos, i = 0;
     string temp;
-
-    // cout << "word: " << word << endl;
     
     while (true) {
         
         if (p->leaf) {                      // node p is a leaf
             lf = (TrieLeafNode*) p;         // where the matching
-            cout << "1" << endl;
             
             if (strcmp(word,lf->word) == 0) {// suffix of word
-                cout << "2" << endl;
                 temp[i] = word[0];
                 ++i;
                 return true;               // should be found;
             }
             
             else {
-                cout << "3" << endl;
                 printSuggestions(temp);
                 return false;
             }
         }
         
         else if (*word == '\0') {            // the end of word has
-            cout << "4" << endl;
             
             if (p->endOfWord) {             // to correspond with
-                cout << "5" << endl;
                 temp[i] = word[0];
                 ++i;
                 return true;              // the endOfWord marker
             }
             
             else {
-                cout << "6" << endl;
                 printSuggestions(temp);
                 return false;
             }             // in node p set to true;
         }
 
         else if ((pos = position(p,*word)) != notFound && p->ptrs[pos] != 0) {       // continue
-            cout << "7" << endl;
-            // cout << word[0];
-            // cout << temp[0];
             temp[i] = word[0];
             temp[i+1] = '\0';
             ++i;
             p = p->ptrs[pos];              // path, if possible,
             word++;
-            cout << word << endl;
         }
         
         else {
-            cout << "8" << endl;
             printSuggestions(temp);
             return false;
         }                // otherwise failure;

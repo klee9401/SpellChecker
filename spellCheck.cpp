@@ -35,7 +35,7 @@ int main(int argc, char* argv[])  {
         trie.insert(strupr(s));
     
     cout << "Dictionary:" << endl;
-    trie.printTrie();
+    // trie.printTrie();
     
     // cout << endl << endl << "****** BREADTH-FIRST TRAVERSAL ******" << endl;
     // trie.printBreadthFirstCaller();
@@ -60,8 +60,10 @@ int main(int argc, char* argv[])  {
     textFile.get(ch);
 
     while (!textFile.eof()) {
+
+        // cout << "Word: " << s << endl;
         
-        while (true)
+        while (true) {
 
             if (!textFile.eof() && !isalpha(ch)) { // skip non-letters
                 if (ch == '\n')
@@ -70,22 +72,21 @@ int main(int argc, char* argv[])  {
             }
 
             else break;
+        }
 
-        if (textFile.eof())       // spaces at the end of textFile;
-             break;
+        if (textFile.eof()) {      // spaces at the end of textFile;
+            break;
+        }
         
         for (i = 0; !textFile.eof() && isalpha(ch); i++) {
-             s[i] = toupper(ch);
-             textFile.get(ch);
+            s[i] = toupper(ch);
+            textFile.get(ch);
         }
 
         s[i] = '\0';
-
-        cout << "word: " << s << endl;
         
         if (!trie.wordFound(s)) {
             error = true;
-            cout << "false" << endl;
 
             if (current == lineNum) {
                 cout << ", " << s;
