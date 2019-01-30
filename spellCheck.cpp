@@ -35,7 +35,7 @@ int main(int argc, char* argv[])  {
         trie.insert(strupr(s));
     
     cout << "Dictionary:" << endl;
-    // trie.printTrie();
+    trie.printTrie();
     
     // cout << endl << endl << "****** BREADTH-FIRST TRAVERSAL ******" << endl;
     // trie.printBreadthFirstCaller();
@@ -60,8 +60,6 @@ int main(int argc, char* argv[])  {
     textFile.get(ch);
 
     while (!textFile.eof()) {
-
-        // cout << "Word: " << s << endl;
         
         while (true) {
 
