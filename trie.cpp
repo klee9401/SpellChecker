@@ -117,6 +117,7 @@ void Trie::printSuggestions(string temp) {
     cout << "Suggestions:" << endl;
 
     printTrie(i, p, base);
+    cout << endl << endl;
 }
 
 int Trie::position(TrieNonLeafNode *p, char ch) {
@@ -130,11 +131,12 @@ int Trie::position(TrieNonLeafNode *p, char ch) {
     else return notFound;
 }
 
-bool Trie::wordFound(char *word) {
+bool Trie::wordFound(char *word, int lineNum) {
     TrieNonLeafNode *p = root;
     TrieLeafNode *lf;
     int pos, i = 0;
     string temp;
+    char* s = word;
     
     while (true) {
         
@@ -148,6 +150,7 @@ bool Trie::wordFound(char *word) {
             }
             
             else {
+                cout << "On Line " << lineNum << " : " << s << endl << endl;
                 printSuggestions(temp);
                 return false;
             }
@@ -162,6 +165,7 @@ bool Trie::wordFound(char *word) {
             }
             
             else {
+                cout << "On Line " << lineNum << " : " << s << endl << endl;
                 printSuggestions(temp);
                 return false;
             }             // in node p set to true;
@@ -176,6 +180,7 @@ bool Trie::wordFound(char *word) {
         }
         
         else {
+            cout << "On Line " << lineNum << " : " << s << endl << endl;
             printSuggestions(temp);
             return false;
         }                // otherwise failure;

@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <cctype>
+#include <ctime>
+#include "windows.h"
+#include "psapi.h"
 #include "trie.h"
 
 using namespace std;
@@ -19,7 +22,9 @@ int main(int argc, char* argv[])  {
 
     char fileName[25], s[80], ch;
     int i, lineNum = 1, current;
-    bool error = false;
+    bool noError = true;
+
+    clock_t startTime;
 
     ifstream dictionary("dictionary.txt");
     
@@ -35,7 +40,8 @@ int main(int argc, char* argv[])  {
         trie.insert(strupr(s));
     
     cout << "Dictionary:" << endl;
-    trie.printTrie();
+    // trie.printTrie();
+    cout << endl;
     
     // cout << endl << endl << "****** BREADTH-FIRST TRAVERSAL ******" << endl;
     // trie.printBreadthFirstCaller();
@@ -58,6 +64,8 @@ int main(int argc, char* argv[])  {
 
     cout << "Mispelled words:" << endl << endl;
     textFile.get(ch);
+
+    startTime = clock();
 
     while (!textFile.eof()) {
         
@@ -83,26 +91,31 @@ int main(int argc, char* argv[])  {
 
         s[i] = '\0';
         
-        if (!trie.wordFound(s)) {
-            error = true;
-
-            if (current == lineNum) {
-                cout << ", " << s;
-            }
-
-            else {
-                cout << "On line " << lineNum << " : " << s << endl << endl;;
-                current = lineNum;
-            }
+        if (!trie.wordFound(s, lineNum)) {
+            noError = false;
         }
     }
 
-    if (!error) {
+    if (noError) {
         cout << "NONE";
     }
     
     dictionary.close();
     textFile.close();
+
+    float runTime;
+
+    runTime = ((float)(clock() - startTime)/CLOCKS_PER_SEC);
+
+    cout << "\nruntime: " << runTime << endl;
     
+
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    // GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc));
+    GetProcessMemoryInfo(GetCurrentProcess(), reinterpret_cast<PPROCESS_MEMORY_COUNTERS>(&pmc), sizeof(pmc));
+    SIZE_T memoryUsage = pmc.PrivateUsage; // WorkSetSize - physical memory
+
+    cout << "memory used: " << memoryUsage << endl;
+
     return 0;
 }

@@ -42,7 +42,7 @@ class Trie {
         void printBreadthFirstCaller() { printBreadthFirst(); }
         // void printSuggestionsCaller() { printSuggestions(); }
         void insert(char*);
-        bool wordFound(char*);
+        bool wordFound(char*,int);
     
     private:
         TrieNonLeafNode *root;
