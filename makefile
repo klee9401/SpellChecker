@@ -1,5 +1,5 @@
 spellCheck.exe	: spellCheck.o trie.o
-	g++ -O2 -std=c++11 -o spellCheck.exe spellCheck.o trie.o -l gdi32 -static-libgcc -static-libstdc++
+	g++ -O2 -std=c++11 -o spellCheck.exe spellCheck.o trie.o -l gdi32 -lpsapi -static-libgcc -static-libstdc++
 			
 spellCheck.o	: spellCheck.cpp trie.h
 	g++ -O2 -std=c++11 -c -fpermissive -Wwrite-strings spellCheck.cpp

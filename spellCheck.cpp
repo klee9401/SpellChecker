@@ -25,6 +25,7 @@ int main(int argc, char* argv[])  {
     bool noError = true;
 
     clock_t startTime;
+    startTime = clock();
 
     ifstream dictionary("dictionary.txt");
     
@@ -64,8 +65,6 @@ int main(int argc, char* argv[])  {
 
     cout << "Mispelled words:" << endl << endl;
     textFile.get(ch);
-
-    startTime = clock();
 
     while (!textFile.eof()) {
         
